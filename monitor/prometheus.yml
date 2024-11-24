@@ -1,0 +1,11 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metagame:
+  name: users-management-monitor
+spec:
+  selector:
+    matchLabels:
+      app: users-management
+  endpoints:
+  - port: http
+    path: /metrics

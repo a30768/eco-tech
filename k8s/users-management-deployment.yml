@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-management
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: users-management
+  template:
+    metadata:
+      labels:
+        app: users-management
+    spec:
+      containers:
+      - name: users-management
+        image: myrepo/users-management:latest
+        ports:
+        - containerPort: 3001
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3001
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3001
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
