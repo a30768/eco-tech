@@ -1,20 +1,4 @@
-version: '3'
-services:
-  msautentication:
-    build: .
-    ports:
-      - "5565:5565"
-    depends_on:
-      - mongo
-    environment:
-      - MONGO_UR=mongodb://localhost:27017/msautentication
-      - SECRET_KEY=arqsis202425
-  mongo:
-    image: mongo
-    volumes:
-      - mongo-data:/data/db
-    ports:
-      - "27017:27017"
-
-volumes:
-  mongo-data:
+environment:
+  - POSTGRES_USER=${POSTGRES_USER}
+  - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  - POSTGRES_DB=${POSTGRES_DB}

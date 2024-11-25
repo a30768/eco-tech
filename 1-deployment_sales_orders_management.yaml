@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sales-orders-management
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sales-orders-management
+  template:
+    metadata:
+      labels:
+        app: sales-orders-management
+    spec:
+      containers:
+      - name: sales-orders-management
+        image: myrepo/sales-orders-management:latest
+        ports:
+        - containerPort: 3003
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3003
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3003
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"

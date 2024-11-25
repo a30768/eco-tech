@@ -1,11 +1,17 @@
-FROM node:16-alpine
+FROM node:16
 
-WORKDIR users-management/app
+# Define o diretório de trabalho no container
+WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Copia os arquivos necessários para o container
+COPY package*.json ./
 RUN npm install
 
+# Copia o restante do código
 COPY . .
 
-EXPOSE 3001
-CMD ["node", "app.js"]
+# Expõe a porta onde o serviço será executado
+EXPOSE 3000
+
+# Comando para iniciar o serviço
+CMD ["npm", "start"]
